@@ -1,4 +1,3 @@
-# 392Kirkland
 # Repository for GEOG 392 Darby Kirkland
 
 |Labs      |
@@ -10,4 +9,3 @@
 |[Lab5](Lab5/README.md)|
 |[Lab6](Lab6/README.md)|
 |[Lab7](Lab7/README.md)|
-
