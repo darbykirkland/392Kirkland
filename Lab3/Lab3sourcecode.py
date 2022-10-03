@@ -8,7 +8,7 @@
 #import library for pi
 import math
 
-#create and define classes
+#create and define classes for each shape on the list
 class shape:
     def __init__init(self):
         pass
@@ -36,12 +36,12 @@ class circle(shape):
         return (self.radius * self.radius * math.pi)
 
 
-# open the text file containing the shapes
+# open the text file containing the shapes and data
 file = open(r'C:\Users\spygo\Desktop\Repos\GEOG392\Lab3\shapes.txt')
 lines = file.readlines()
 file.close()
 
-# for each line, print area
+# for each line, print area of the shape
 for line in lines:
     components = line.split(",")
 
