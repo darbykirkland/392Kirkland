@@ -1,4 +1,4 @@
-#Lab 5 toolbox
+#Tool box for lab 5
 
 import arcpy
 
@@ -51,11 +51,6 @@ class BuildingProximity(object):
         """Modify the values and properties of parameters before internal
         validation is performed.  This method is called whenever a parameter
         has been changed."""
-        # This fucks up the toolbox for me, not sure why
-        # Set the default distance threshold to 1/100 of the larger of the width
-        #  or height of the extent of the input features.  Do not set if there is no 
-        #  input dataset yet, or the user has set a specific distance (Altered is true).
-        #
         return
 
     def updateMessages(self, parameters):
@@ -66,7 +61,7 @@ class BuildingProximity(object):
     def execute(self, parameters, messages):
         """The source code of the tool."""
         #location of campus.gdb
-        campus = r"C:\Users\Admin\Desktop\Fall2021Sylibi\GIS\GEOG392\Lab4\Campus.gdb"
+        campus = r"C:\Users\spygo\Desktop\Repos\GEOG392\Lab5\Lab4GDB.gdb"
 
         # Setup our user input variables
         buildingNumber_input = parameters[0].valueAsText
@@ -83,19 +78,16 @@ class BuildingProximity(object):
         for row in cursor:
             if row.getValue("Bldg") == buildingNumber_input:
                 shouldProceed = True
-
-        # If we shouldProceed do so
-        #value of kyle field = 0367 for testing
         if shouldProceed:
-            # Generate the name for our generated buffer layer
+            # Generate a name for buffer layer
             buildingBuff = "/building_%s_buffed_%s" % (buildingNumber_input, bufferSize_input)
-            # Get reference to building
+            # Get referenced
             buildingFeature = arcpy.Select_analysis(structures, campus + "/building_%s" % (buildingNumber_input), where_clause)
-            # Buffer the selected building
+            # Buffer selected building
             arcpy.Buffer_analysis(buildingFeature, campus + buildingBuff, bufferSize_input)
-            # Clip the structures to our buffered feature
+            # Clip the structures to our buffer
             arcpy.Clip_analysis(structures, campus + buildingBuff, campus + "/clip_%s" % (buildingNumber_input))
-            # Remove the feature class we just created
+            # Remove the feature class we created earlier
             arcpy.Delete_management(campus + "/building_%s" % (buildingNumber_input))
         else:
             print("Seems we couldn't find the building you entered")
